@@ -122,6 +122,46 @@
           }
         }
       }
+    },
+    "interactive-graph": {
+      "projectType": "library",
+      "root": "projects/interactive-graph",
+      "sourceRoot": "projects/interactive-graph/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/interactive-graph/tsconfig.lib.json",
+            "project": "projects/interactive-graph/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/interactive-graph/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/interactive-graph/src/test.ts",
+            "tsConfig": "projects/interactive-graph/tsconfig.spec.json",
+            "karmaConfig": "projects/interactive-graph/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/interactive-graph/tsconfig.lib.json",
+              "projects/interactive-graph/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "LibraryDemo"

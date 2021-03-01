@@ -1,0 +1,52 @@
+<table>
+    <tr>
+        <div *ngIf="isEditable">
+            <tr>
+                <input *ngIf="hasUnit" id="unitValue" placeholder="Einheit" type="text" name="Name">
+                <button *ngIf="hasUnit" id="unitButton" (click)="onChangeUnit()"><img src="./assets/images/edit.png" height="22"
+                width="22"> Ändern</button>
+                <hr>
+
+            </tr>
+            <td>
+                <button id="addNodeButton"><img src="./assets/images/add_white.png" height="22" width="22"> Knoten
+        </button>
+                <button id="addEdgeButton"><img src="./assets/images/add_white.png" height="22" width="22"> Kante
+        </button>
+                <button id="moveButton"><img src="./assets/images/move_white.png" height="22" width="22"> Verschieben
+        </button>
+                <button id="deleteButton"><img src="./assets/images/delete_white.png" height="22" width="22"> Löschen
+        </button>
+                <button id="undoButton"><img src="./assets/images/arrow_left_white.png" height="22" width="22"> Schritt
+            zurück </button>
+                <button id="resetButton"><img src="./assets/images/reset_white.png" height="22" width="22"> Reset
+        </button>
+            </td>
+        </div>
+    </tr>
+    <tr>
+        <td>
+            <button *ngIf="isSTExercise" id="sourceButton"><img src="./assets/images/add_yellow.png" height="22" width="22"> Start
+                wählen
+            </button>
+            <button *ngIf="isSTExercise" id="targetButton"><img src="./assets/images/add_red.png" height="22" width="22"> Ziel
+                wählen
+            </button>
+            <button *ngIf="hasMandatoryNode" id="mandatoryButton"><img src="./assets/images/add_orange.png" height="22"
+                    width="22"> Zu besuchende Knoten wählen
+            </button>
+            <button *ngIf="hasPrefixNode" id="prefixButton"><img src="./assets/images/add_blue.png" height="22"
+                    width="22"> Präfixknoten wählen
+            </button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <input *ngIf="getActive()!=null" id="inputValue" type="text" placeholder="neuer Wert" name="Name">
+            <button *ngIf="getActive()!=null" id="changeButton" (click)="onChange()"><img src="./assets/images/edit.png"
+                    height="22" width="22"> Ändern</button>
+        </td>
+    </tr>
+</table>
+<canvas id="graph-canvas" width="600" height="400" style="border:1px solid #000000" draggable="false"></canvas>

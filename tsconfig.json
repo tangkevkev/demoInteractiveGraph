@@ -8,6 +8,12 @@
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "interactive-graph": [
+        "dist/interactive-graph/interactive-graph",
+        "dist/interactive-graph"
+      ]
+    },
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,

@@ -1,0 +1,30 @@
+export enum InteractionType {
+    NULL,    //used for creating exercises
+    DELETE,
+    CREATE_NODE,
+    RENAME_NODE,
+    MOVE_NODE,
+    CREATE_EDGE,
+    SET_WEIGHT,
+    SELECT_SOURCE_NODE,
+    SELECT_TARGET_NODE,
+    SELECT_MANDATORY_NODE,
+    SELECT_PREFIX_NODES,
+    //Used for solving exercises
+    HIGHLIGHT_NODE,
+    HIGHLIGHT_EDGE,
+    HIGHLIGHT_PATH,
+    HIGHLIGHT_SIMPLE_PATH,
+    HIGHLIGHT_VERTEX_COVER,
+    HIGHLIGHT_ALL,
+    UNDEFINED1,
+    UNDEFINED2,
+    UNDEFINED3,
+    UNDEFINED4,
+    UNDEFINED5,
+    UNDEFINED6,
+    UNDEFINED7,
+    UNDEFINED8,
+    UNDEFINED9
+}
+
