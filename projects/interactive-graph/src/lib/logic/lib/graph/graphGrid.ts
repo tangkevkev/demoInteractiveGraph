@@ -7,7 +7,7 @@ import { AbstractNode } from "../abstract/aNode";
 export class GraphGrid extends Grid {
     protected numRows: number;
     protected numCols: number;
-    protected canvas: HTMLCanvasElement;
+    protected canvas: HTMLCanvasElement = null as any;
 
     drawableMapping: Map<Drawable, [number, number]>;
 
@@ -16,17 +16,20 @@ export class GraphGrid extends Grid {
 
     protected windowRatio: number = 0.48;
 
-    constructor(canvas: HTMLCanvasElement, numRows?: number, numCols?: number) {
+    constructor(canvas?: HTMLCanvasElement, numRows?: number, numCols?: number) {
         super();
         this.numRows = (numRows == undefined) ? GraphGrid.DEFAULT_NUMROW : numRows;
         this.numCols = (numCols == undefined) ? GraphGrid.DEFAULT_NUMCOL : numCols;
-        this.canvas = canvas;
+        if (canvas)
+            this.canvas = canvas;
         this.drawableMapping = new Map();
         this.setVisibility(OPACITY.INVISIBLE);
 
         if (window != null) {
-            this.canvas.width = this.getCanvasWidth();
-            this.canvas.height = this.getCanvasHeight();
+            if (canvas) {
+                canvas.width = this.getCanvasWidth();
+                canvas.height = this.getCanvasHeight();
+            }
             // this.setupCanvas(this.canvas);
         }
     }
@@ -35,7 +38,9 @@ export class GraphGrid extends Grid {
         this.drawableMapping = new Map();
     }
 
+
     setupCanvas(canvas: HTMLCanvasElement) {
+        this.canvas = canvas;
         // Get the device pixel ratio, falling back to 1.
         var dpr = window.devicePixelRatio || 1;
         // Get the size of the canvas in CSS pixels.

@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IGraph, GraphDW, GraphUU, GraphUW, InteractionType, 
-  NameVertex, Interactable, Weightable} from './logic/index'
+  NameVertex, Interactable, Weightable, GraphDU} from './logic/index'
+import { InteractiveGraph } from './logic/lib/interactive/interactiveGraph';
 
 @Component({
   selector: 'lib-interactive-graph',
@@ -13,7 +14,7 @@ export class InteractiveGraphComponent implements OnInit {
   private graph: IGraph = null as any;
 
 
-  @Input() graphType: GraphType = null as any;
+  @Input() graphType: GraphType = GraphType.UNDIRECTED_UNWEIGHTED_GRAPH;
   @Input() isEditable: boolean = true;
   // ST = Source Target Exercise
   @Input() isSTExercise: boolean = true;
@@ -21,6 +22,12 @@ export class InteractiveGraphComponent implements OnInit {
 
   @Input() hasMandatoryNode: boolean = true;
   @Input() hasPrefixNode: boolean = true;
+
+  @Output() emitGraph = new EventEmitter<InteractiveGraph>()
+
+  
+
+  
 
 
   interactionType: InteractionType = InteractionType.NULL;
@@ -59,18 +66,26 @@ export class InteractiveGraphComponent implements OnInit {
 
   ngOnInit(): void {
     const canvas = <HTMLCanvasElement>document.getElementById(this.canvasID);
+    this.graph = null as any;
 
     switch (this.graphType) {
-      case GraphType.DIRECTED_GRAPH:
+      case GraphType.DIRECTED_WEIGHTED_GRAPH:
         this.graph = new GraphDW(canvas);
         break;
-      case GraphType.UNDIRECTED_GRAPH:
+      case GraphType.UNDIRECTED_UNWEIGHTED_GRAPH:
         this.graph = new GraphUU(canvas);
+        break;
+      case GraphType.DIRECTED_UNWEIGHTED_GRAPH:
+        this.graph = new GraphDU(canvas);
+        break
+      case GraphType.UNDIRECTED_WEIGHTED_GRAPH:
+        this.graph = new GraphUW(canvas);
         break;
       default:
         console.log("No graphtype: " + this.graphType)
         break;
     }
+    this.emitGraph.emit(this.graph)
   }
 
 
@@ -323,7 +338,8 @@ export class InteractiveGraphComponent implements OnInit {
 }
 
 export enum GraphType {
-  DIRECTED_GRAPH,
-  UNDIRECTED_GRAPH,
-  MIXED_GRAPH
+  DIRECTED_WEIGHTED_GRAPH,
+  UNDIRECTED_WEIGHTED_GRAPH,
+  DIRECTED_UNWEIGHTED_GRAPH,
+  UNDIRECTED_UNWEIGHTED_GRAPH
 }

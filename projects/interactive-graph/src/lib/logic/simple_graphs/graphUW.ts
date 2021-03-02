@@ -3,7 +3,7 @@ import { GraphType } from '../lib/interactive/iGraph';
 import { Vertex } from '../lib/base/vertex';
 import { Edge } from '../lib/base/edge';
 
-// GraphDW = Directed Weighted Graph
+// GraphUW = Undirected weighted Graph
 
 export class GraphUW extends IGraph {
     constructor(canvas: HTMLCanvasElement) {

@@ -1,1 +1,2 @@
-<lib-interactive-graph [graphType]=0></lib-interactive-graph>
+<lib-interactive-graph [graphType]="graphType" (emitGraph)="setGraph($event)"></lib-interactive-graph>
+<button (click)="show()">Show</button>

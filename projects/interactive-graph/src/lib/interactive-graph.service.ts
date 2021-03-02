@@ -6,4 +6,8 @@ import { Injectable } from '@angular/core';
 export class InteractiveGraphService {
 
   constructor() { }
+
+  foo(){
+    console.log("Hello from the service")
+  }
 }

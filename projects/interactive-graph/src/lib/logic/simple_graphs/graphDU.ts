@@ -1,13 +1,14 @@
-import { IGraph, GraphGrid, CircleNameVertex, SimpleUndirectedEdge } from '../index';
+import { IGraph, GraphGrid, CircleNameVertex, SimpleDirectedWeightedEdge } from '../index';
 import { GraphType } from '../lib/interactive/iGraph';
 import { Vertex } from '../lib/base/vertex';
 import { Edge } from '../lib/base/edge';
+import { SimpleDirectedEdge } from '../predefined/edge/simpleDirectedEdge';
 
-// GraphUU = Undirected unweighted Graph
+// GraphDW = Directed unweighted Graph
 
-export class GraphUU extends IGraph {
+export class GraphDU extends IGraph {
     constructor(canvas: HTMLCanvasElement) {
-        super(GraphType.UNDIRECTED_GRAPH, new GraphGrid(canvas), canvas);
+        super(GraphType.DIRECTED_GRAPH, new GraphGrid(canvas), canvas);
     }
 
     newNode(args?: any[]): Vertex {
@@ -18,9 +19,8 @@ export class GraphUU extends IGraph {
     }
 
     newEdge(from: Vertex, to: Vertex, args?: any[]): Edge {
-        return new SimpleUndirectedEdge(from, to);
+        return new SimpleDirectedEdge(from, to);
     }
-
 
     keyBoardEvent(k: KeyboardEvent) {}
 
