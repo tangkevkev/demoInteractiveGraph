@@ -50,6 +50,9 @@ export class GraphGrid extends Grid {
         canvas.width = rect.width * dpr;
         canvas.height = rect.height * dpr;
         var ctx = canvas.getContext('2d');
+
+        canvas.width = this.getCanvasWidth();
+        canvas.height = this.getCanvasHeight();
         // Scale all drawing operations by the dpr, so you
         // don't have to worry about the difference.
         if (ctx != null)

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { InteractiveGraph,GraphType, InteractiveGraphService } from 'interactive-graph'
+import { MyGraph } from './customGraph/myGraph'
 
 @Component({
   selector: 'app-root',
@@ -7,9 +8,9 @@ import { InteractiveGraph,GraphType, InteractiveGraphService } from 'interactive
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
   
-  protected graph: InteractiveGraph = null as any;
+  graph: MyGraph = new MyGraph();
+  /*protected graph: InteractiveGraph = null as any;
   graphType: GraphType = GraphType.UNDIRECTED_WEIGHTED_GRAPH;
 
   setGraph(graph: InteractiveGraph) {
@@ -24,7 +25,7 @@ export class AppComponent {
   }
 
   title = 'LibraryDemo';
-
+*/
 
 
 

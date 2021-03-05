@@ -1,31 +1,31 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IGraph, GraphDW, GraphUU, GraphUW, InteractionType, 
-  NameVertex, Interactable, Weightable, GraphDU} from './logic/index'
+import {
+  IGraph, GraphDW, GraphUU, GraphUW, InteractionType,
+  NameVertex, Interactable, Weightable, GraphDU, GraphGrid
+} from './logic/index'
 import { InteractiveGraph } from './logic/lib/interactive/interactiveGraph';
 
 @Component({
-  selector: 'interactive-graph',
-  templateUrl: './interactive-graph.component.html',
-  styleUrls: ['./interactive-graph.component.css']
+  selector: 'custom-interactive-graph',
+  templateUrl: './custom-interactive-graph.component.html',
+  styleUrls: ['./custom-interactive-graph.component.css']
 })
-export class InteractiveGraphComponent implements OnInit {
-
+export class CustomInteractiveGraphComponent implements OnInit {
+  
   private readonly canvasID: string = 'graph-canvas';
-  private graph: IGraph = null as any;
+  @Input("graph")graph: InteractiveGraph = null as any;
 
 
-  @Input() graphType: InteractiveGraphType = InteractiveGraphType.UNDIRECTED_UNWEIGHTED_GRAPH;
-  @Input() isEditable: boolean = true;
+  @Input("isEditable") isEditable: boolean = true;
   // ST = Source Target Exercise
-  @Input() isSTExercise: boolean = true;
-  @Input() hasUnit: boolean = false;
+  @Input("isSTExercise") isSTExercise: boolean = false;
+  @Input("hasUnit") hasUnit: boolean = false;
 
   @Input() hasMandatoryNode: boolean = false;
   @Input() hasPrefixNode: boolean = false;
 
-  @Output() emitGraph = new EventEmitter<InteractiveGraph>()
 
-  
+
 
   interactionType: InteractionType = InteractionType.NULL;
   iMoveNode: InteractionType = InteractionType.MOVE_NODE;
@@ -63,32 +63,19 @@ export class InteractiveGraphComponent implements OnInit {
 
   ngOnInit(): void {
     const canvas = <HTMLCanvasElement>document.getElementById(this.canvasID);
-    this.graph = null as any;
+    if(this.graph){
+      this.graph.setCanvas(canvas);
+      let grid = this.graph.getGrid()
+      if(grid instanceof GraphGrid){
+        grid.setupCanvas(canvas)
+      }    
 
-    switch (this.graphType) {
-      case InteractiveGraphType.DIRECTED_WEIGHTED_GRAPH:
-        this.graph = new GraphDW(canvas);
-        break;
-      case InteractiveGraphType.UNDIRECTED_UNWEIGHTED_GRAPH:
-        this.graph = new GraphUU(canvas);
-        break;
-      case InteractiveGraphType.DIRECTED_UNWEIGHTED_GRAPH:
-        this.graph = new GraphDU(canvas);
-        break
-      case InteractiveGraphType.UNDIRECTED_WEIGHTED_GRAPH:
-        this.graph = new GraphUW(canvas);
-        break;
-      default:
-        console.log("No graphtype: " + this.graphType)
-        break;
+      this.graph.forceUpdate()
     }
-    this.emitGraph.emit(this.graph)
   }
 
 
   ngAfterViewInit(): void {
-
-
     if (this.isEditable) {
       this.resetButton = <HTMLButtonElement>document.getElementById(this.resetID);
       this.resetButton.addEventListener('click', this.onReset, false);
@@ -329,14 +316,7 @@ export class InteractiveGraphComponent implements OnInit {
     this.graph.setInteractionType(i);
   }
 
-  
 
 
-}
 
-export enum InteractiveGraphType {
-  DIRECTED_WEIGHTED_GRAPH,
-  UNDIRECTED_WEIGHTED_GRAPH,
-  DIRECTED_UNWEIGHTED_GRAPH,
-  UNDIRECTED_UNWEIGHTED_GRAPH
 }

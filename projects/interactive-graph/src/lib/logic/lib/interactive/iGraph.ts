@@ -5,7 +5,7 @@ import { UndirectedGraph } from "../graph/undirectedGraph";
 import { MixedGraph } from "../graph/mixedGraph";
 
 export abstract class IGraph extends InteractiveGraph{
-    constructor(graphType: GraphType, grid: Grid, canvas: HTMLCanvasElement){
+    constructor(graphType: GraphType, grid: Grid, canvas?: HTMLCanvasElement){
         switch(graphType){
             case GraphType.DIRECTED_GRAPH:
                 super(new DirectedGraph(), grid, canvas); break;

@@ -1,7 +1,9 @@
+import { fromEventPattern } from 'rxjs';
+
 export {GraphGrid} from './lib/graph/graphGrid'
 export {SimpleInteractiveUndirectedGraph} from './predefined/interactive_graph/undirectedGraph/simpleInteractiveUndirectedGraph'
 export {SimpleInteractiveDirectedGraph} from './predefined/interactive_graph/directedGraph/simpleInteractiveDirectedGraph'
-export {IGraph} from './lib/interactive/iGraph';
+export {IGraph, GraphType} from './lib/interactive/iGraph';
 export {NameVertex} from './lib/graph/vertices/NameVertex';
 export {ImageVertex} from './lib/graph/vertices/ImageVertex';
 export {GraphAlgorithm} from './lib/graphAlgorithm';
@@ -25,3 +27,6 @@ export {GraphDW} from './simple_graphs/graphDW'
 export {GraphUW} from './simple_graphs/graphUW'
 export {GraphDU} from './simple_graphs/graphDU'
 export {InteractiveGraph} from './lib/interactive/interactiveGraph'
+export {CustomImageVertex} from './predefined/node/customImageVertex'
+export {AbstractNode} from './lib/abstract/aNode'
+export {AbstractEdge} from './lib/abstract/aEdge'
