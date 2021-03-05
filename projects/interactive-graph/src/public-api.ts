@@ -14,4 +14,8 @@ export {InteractionType, InteractiveGraph, IGraph,GraphGrid,
     SimpleDirectedWeightedEdge, SimpleUndirectedEdge,
     SimpleUndirectedWeightedEdge, CircleNameVertex,TreeGrid,
     ITree, RectangleNameTreeNode, SimpleUndirectedTreeEdge,
-    GraphRandom, GraphUU, GraphDW, GraphUW,GraphDU, GraphType, CustomImageVertex} from './lib/logic/index'
+    GraphRandom, GraphUU, GraphDW, GraphUW,GraphDU, GraphType, 
+    CustomImageVertex, ImageSimpleDirectedEdge,
+    ImageSimpleDirectedWeightedEdge, ImageSimpleUndirectedEdge,
+    ImageSimpleUndirectedWeightedEdge,ImageSimpleUndirectedTreeEdge
+} from './lib/logic/index'

@@ -1,5 +1,5 @@
 import { Vertex } from 'dist/interactive-graph/lib/logic/lib/base/vertex';
-import { IGraph, GraphType, NameVertex, CircleNameVertex, SimpleDirectedEdge, GraphGrid, CustomImageVertex, SimpleUndirectedEdge } from 'interactive-graph'
+import { IGraph, GraphType, NameVertex, CircleNameVertex, ImageSimpleUndirectedEdge, GraphGrid, CustomImageVertex, SimpleUndirectedEdge } from 'interactive-graph'
 
 
 export class MyGraph extends IGraph {
@@ -28,7 +28,9 @@ export class MyGraph extends IGraph {
         return cs;
     }
 
-    newEdge(from: Vertex, to: Vertex): SimpleUndirectedEdge {
-        return new SimpleUndirectedEdge(from, to)
+    newEdge(from: Vertex, to: Vertex): ImageSimpleUndirectedEdge {
+        let edge = new ImageSimpleUndirectedEdge(from, to);
+        edge.setImageLink("./assets/street.png")
+        return edge;
     }
 }
