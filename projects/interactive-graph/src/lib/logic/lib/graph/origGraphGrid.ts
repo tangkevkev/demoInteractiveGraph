@@ -14,8 +14,7 @@ export class GraphGrid extends Grid {
     static readonly DEFAULT_NUMROW: number = 8;
     static readonly DEFAULT_NUMCOL: number = 13;
 
-    protected windowRatio = 0.38
-
+    protected windowRatio: number = 0.35;
 
     constructor(canvas?: HTMLCanvasElement, numRows?: number, numCols?: number) {
         super();
@@ -178,7 +177,8 @@ export class GraphGrid extends Grid {
     }
 
     getCanvasWidth(): number {
-        return this.canvas.width;
+        let wRatio = this.windowRatio;
+        return window.innerWidth * wRatio;
         //return this.canvas.offsetWidth;
     }
 

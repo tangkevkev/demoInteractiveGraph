@@ -219,11 +219,6 @@ export abstract class InteractiveGraph extends Interactable {
         this.resetHighLightNodes();
         this.highLightNodes = nodes;
 
-        console.log("Calling highlight path: ")
-        console.log("Nodes. " + nodes)
-        console.log("Edges: " + edges)
-
-
         if (nodes != null)
             for (let i = 0; i < nodes.length; i++) {
                 let node = nodes[i];
@@ -241,16 +236,17 @@ export abstract class InteractiveGraph extends Interactable {
                 }
             }
         } else {
-            if (nodes)
+            if (nodes != null) {
                 for (let i = 1; i < nodes.length; i++) {
                     let from = nodes[i - 1];
                     let to = nodes[i];
                     let edge = this.graph.getEdge(from, to);
-                    console.log("highlight edge: " + edge)
                     if (edge && Colorable.isColorable(edge)) {
                         edge.setColor((color) ? color : "rgb(123," + (255 - ((i * 255) / nodes.length)) + ", 240)");
+                        this.highLightEdges.push(edge)
                     }
                 }
+            }
         }
 
         this.graph.update(this.ctx, this.grid);

@@ -27,12 +27,6 @@ export class GraphAlgorithm {
 
             if (startNode == node) {
                 result.add(endNode);
-                if (node instanceof NameVertex) {
-                    if (endNode instanceof NameVertex) {
-                        /*   console.log("Neighbor of " + node.getName() + " is : " 
-                           + endNode.getName());*/
-                    }
-                }
             }
             else {
                 if (edge instanceof UndirectedEdge) {
@@ -320,7 +314,7 @@ export class GraphAlgorithm {
             let u: AbstractNode = this.smallestDistance(Q, distance);
             Q.splice(Q.indexOf(u), 1);
 
-            let neighbors: AbstractNode[] = this.cloneNodeArray(this.getNeighbors(u, graph));
+            let neighbors: AbstractNode[] = this.getNeighbors(u, graph);
             neighbors.forEach(v => {
                 if (Q.includes(v)) {
                     this.distanceUpdate(u, v, distance, predecessors, graph);
@@ -374,7 +368,8 @@ export class GraphAlgorithm {
             let dist_u = distance.get(u)
             let dist_v = distance.get(v)
 
-            if (dist_u && dist_v) {
+
+            if (dist_u != undefined && dist_v != undefined) {
                 let alternativ: number = dist_u + edge.getWeight();
                 if (alternativ < dist_v) {
                     distance.set(v, alternativ);

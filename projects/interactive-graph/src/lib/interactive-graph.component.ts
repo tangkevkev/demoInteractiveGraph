@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { InteractiveGraphService } from './interactive-graph.service';
 import {
   IGraph, GraphDW, GraphUU, GraphUW, InteractionType,
-  NameVertex, Interactable, Weightable, GraphDU, GraphAlgorithm
+  NameVertex, Interactable, Weightable, GraphDU, GraphAlgorithm, AbstractNode, GraphRandom
 } from './logic/index'
 import { InteractiveGraph } from './logic/lib/interactive/interactiveGraph';
 
@@ -99,15 +99,25 @@ export class InteractiveGraphComponent implements OnInit {
     switch (this.algorithm) {
       case "shortestPath":
         let shortestpath = GraphAlgorithm.dijkstraShortestPath(this.graph.getGraph(), this.graph.getSourceNode(), this.graph.getTargetNode());
-        this.graph.highLight(shortestpath[0], shortestpath[1])
         this.graph.highLightPath(shortestpath[0])
-
         break;
       case "mst":
         let mst = GraphAlgorithm.primMST(this.graph.getGraph())
         this.graph.highLight(null as any, mst);
         break;
+      case "vertexCover":
+        let vertexCover = GraphAlgorithm.vertexCover(this.graph.getGraph());
+        this.graph.highLight(vertexCover, null as any);
+        break;
+      case "hamiltonPath":
+        let hamilton = GraphAlgorithm.hamiltonPath(this.graph.getGraph());
+        this.graph.highLight(hamilton[0], hamilton[1])
+        break;
     }
+  }
+
+  randomGraph(){
+      GraphRandom.generateGraph(this.graph);
   }
 
   onChangeLanguage() {
@@ -115,29 +125,78 @@ export class InteractiveGraphComponent implements OnInit {
 
   onChangeGraph() {
     const canvas = <HTMLCanvasElement>document.getElementById(this.canvasID);
-    if (this.graph != null) {
-      this.graph.reset();
-    }
 
+    let newGraph: IGraph = null as any;
     switch (this.graphType) {
       case InteractiveGraphType.DIRECTED_WEIGHTED_GRAPH:
-        this.graph = new GraphDW(canvas);
+        newGraph = new GraphDW(canvas);
         break;
       case InteractiveGraphType.UNDIRECTED_UNWEIGHTED_GRAPH:
-        this.graph = new GraphUU(canvas);
+        newGraph = new GraphUU(canvas);
         break;
       case InteractiveGraphType.DIRECTED_UNWEIGHTED_GRAPH:
-        this.graph = new GraphDU(canvas);
+        newGraph = new GraphDU(canvas);
         break
       case InteractiveGraphType.UNDIRECTED_WEIGHTED_GRAPH:
-        this.graph = new GraphUW(canvas);
+        newGraph = new GraphUW(canvas);
         break;
       default:
         break;
     }
+
+    if (newGraph != null) {
+      let grid = this.graph.getGrid();
+
+      let nodeMap: Map<AbstractNode, AbstractNode> = new Map()
+      this.graph.getNodes().forEach(node => {
+        let newNode = newGraph.newNode();
+        nodeMap.set(node, newNode)
+        if (newNode instanceof NameVertex && node instanceof NameVertex) {
+          newNode.setName(node.getName());
+        }
+
+        newGraph.add(newNode, grid.getCoordinate(node))
+      })
+
+      this.graph.getEdges().forEach(edge => {
+        let fromNode = nodeMap.get(edge.getStartNode());
+        let toNode = nodeMap.get(edge.getEndNode());
+
+        if (fromNode && toNode) {
+
+          let newEdge = newGraph.newEdge(fromNode, toNode);
+          if (Weightable.isWeightable(edge) && Weightable.isWeightable(newEdge)) {
+            newEdge.setWeight(edge.getWeight())
+          }
+          newGraph.add(newEdge)
+        }
+      })
+
+      if (this.graph.getSourceNode() != null) {
+        let newSource = nodeMap.get(this.graph.getSourceNode());
+        if (newSource)
+          newGraph.setSourceNode(newSource);
+      }
+
+      if (this.graph.getTargetNode() != null) {
+        let newTarget = nodeMap.get(this.graph.getTargetNode());
+        if (newTarget)
+          newGraph.setTargetNode(newTarget);
+      }
+
+
+
+      this.graph.reset()
+      this.graph = newGraph;
+
+
+
+      this.graph.forceUpdate()
+    }
     this.emitGraph.emit(this.graph)
 
   }
+
   ngOnInit(): void {
     const canvas = <HTMLCanvasElement>document.getElementById(this.canvasID);
     this.graph = null as any;
@@ -161,7 +220,6 @@ export class InteractiveGraphComponent implements OnInit {
     }
     this.emitGraph.emit(this.graph)
   }
-
 
   ngAfterViewInit(): void {
 
@@ -209,7 +267,6 @@ export class InteractiveGraphComponent implements OnInit {
         this.buttonMapping.set(this.prefixID,
           <HTMLButtonElement>document.getElementById(this.prefixID));
         if (this.buttonMapping.get(this.prefixID) == null) {
-          console.log("prefix is null!!");
         } else {
           let prefixElem = this.buttonMapping.get(this.prefixID);
           if (prefixElem)

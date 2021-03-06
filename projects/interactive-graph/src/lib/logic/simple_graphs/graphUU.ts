@@ -1,7 +1,11 @@
-import { IGraph, GraphGrid, CircleNameVertex, SimpleUndirectedEdge } from '../index';
-import { GraphType } from '../lib/interactive/iGraph';
+//import { IGraph, GraphGrid, CircleNameVertex, SimpleUndirectedEdge } from '../index';
+
+import { GraphType, IGraph } from '../lib/interactive/iGraph';
 import { Vertex } from '../lib/base/vertex';
 import { Edge } from '../lib/base/edge';
+import { GraphGrid } from '../lib/graph/graphGrid';
+import { CircleNameVertex } from '../predefined/node/circleNameVertex';
+import { SimpleUndirectedEdge } from '../predefined/edge/simpleUndirectedEdge';
 
 // GraphUU = Undirected unweighted Graph
 

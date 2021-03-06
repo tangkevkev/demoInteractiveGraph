@@ -135,6 +135,14 @@ export class InteractiveGraphService {
           default: return "Undirected Graph"
         }
 
+      case "randomGraph":
+        switch (language) {
+          case "de": return "Zufälliger Graph"
+          case "fr": return "Graphe aléatoire"
+          case "en": return "Random graph"
+          default: return "Random graph"
+        }
+
 
       case "reset":
         return "Reset";
