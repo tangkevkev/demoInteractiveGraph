@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IGraph, GraphDW, GraphUU, GraphUW, InteractionType, 
-  NameVertex, Interactable, Weightable, GraphDU} from './logic/index'
+import { InteractiveGraphService } from './interactive-graph.service';
+import {
+  IGraph, GraphDW, GraphUU, GraphUW, InteractionType,
+  NameVertex, Interactable, Weightable, GraphDU, GraphAlgorithm
+} from './logic/index'
 import { InteractiveGraph } from './logic/lib/interactive/interactiveGraph';
 
 @Component({
@@ -15,17 +18,19 @@ export class InteractiveGraphComponent implements OnInit {
 
 
   @Input() graphType: InteractiveGraphType = InteractiveGraphType.UNDIRECTED_UNWEIGHTED_GRAPH;
-  @Input() isEditable: boolean = true;
+  @Input("isEditable") isEditable: boolean = true;
   // ST = Source Target Exercise
-  @Input() isSTExercise: boolean = true;
-  @Input() hasUnit: boolean = false;
+  @Input("isSTExercise") isSTExercise: boolean = false;
+  @Input("hasUnit") hasUnit: boolean = false;
+  @Input("language") language: string = "en";
 
   @Input() hasMandatoryNode: boolean = false;
   @Input() hasPrefixNode: boolean = false;
 
   @Output() emitGraph = new EventEmitter<InteractiveGraph>()
 
-  
+
+
 
   interactionType: InteractionType = InteractionType.NULL;
   iMoveNode: InteractionType = InteractionType.MOVE_NODE;
@@ -57,10 +62,82 @@ export class InteractiveGraphComponent implements OnInit {
   undoButton: HTMLButtonElement = null as any;
   undoID: string = "undoButton";
 
-  constructor() {
+  protected service: InteractiveGraphService;
+  algorithm: string = "";
+
+  constructor(service: InteractiveGraphService) {
     this.buttonMapping = new Map();
+    this.service = service;
   }
 
+  translate(word: string): string {
+    return this.service.translate(word, this.language)
+  }
+
+
+  isWeighted(): boolean {
+    switch (this.graphType) {
+      case InteractiveGraphType.DIRECTED_WEIGHTED_GRAPH:
+      case InteractiveGraphType.UNDIRECTED_WEIGHTED_GRAPH:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  isDirected(): boolean {
+    switch (this.graphType) {
+      case InteractiveGraphType.DIRECTED_WEIGHTED_GRAPH:
+      case InteractiveGraphType.DIRECTED_UNWEIGHTED_GRAPH:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  runAlgorithm() {
+    switch (this.algorithm) {
+      case "shortestPath":
+        let shortestpath = GraphAlgorithm.dijkstraShortestPath(this.graph.getGraph(), this.graph.getSourceNode(), this.graph.getTargetNode());
+        this.graph.highLight(shortestpath[0], shortestpath[1])
+        this.graph.highLightPath(shortestpath[0])
+
+        break;
+      case "mst":
+        let mst = GraphAlgorithm.primMST(this.graph.getGraph())
+        this.graph.highLight(null as any, mst);
+        break;
+    }
+  }
+
+  onChangeLanguage() {
+  }
+
+  onChangeGraph() {
+    const canvas = <HTMLCanvasElement>document.getElementById(this.canvasID);
+    if (this.graph != null) {
+      this.graph.reset();
+    }
+
+    switch (this.graphType) {
+      case InteractiveGraphType.DIRECTED_WEIGHTED_GRAPH:
+        this.graph = new GraphDW(canvas);
+        break;
+      case InteractiveGraphType.UNDIRECTED_UNWEIGHTED_GRAPH:
+        this.graph = new GraphUU(canvas);
+        break;
+      case InteractiveGraphType.DIRECTED_UNWEIGHTED_GRAPH:
+        this.graph = new GraphDU(canvas);
+        break
+      case InteractiveGraphType.UNDIRECTED_WEIGHTED_GRAPH:
+        this.graph = new GraphUW(canvas);
+        break;
+      default:
+        break;
+    }
+    this.emitGraph.emit(this.graph)
+
+  }
   ngOnInit(): void {
     const canvas = <HTMLCanvasElement>document.getElementById(this.canvasID);
     this.graph = null as any;
@@ -329,7 +406,7 @@ export class InteractiveGraphComponent implements OnInit {
     this.graph.setInteractionType(i);
   }
 
-  
+
 
 
 }

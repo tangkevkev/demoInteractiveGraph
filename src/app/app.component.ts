@@ -9,9 +9,8 @@ import { MyGraph } from './customGraph/myGraph'
 })
 export class AppComponent {
   
-  graph: MyGraph = new MyGraph();
-  /*protected graph: InteractiveGraph = null as any;
-  graphType: GraphType = GraphType.UNDIRECTED_WEIGHTED_GRAPH;
+  //graph: MyGraph = new MyGraph();
+  protected graph: InteractiveGraph = null as any;
 
   setGraph(graph: InteractiveGraph) {
     this.graph = graph;
@@ -25,7 +24,7 @@ export class AppComponent {
   }
 
   title = 'LibraryDemo';
-*/
+
 
 
 

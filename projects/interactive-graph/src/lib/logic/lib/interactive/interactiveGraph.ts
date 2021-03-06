@@ -124,7 +124,6 @@ export abstract class InteractiveGraph extends Interactable {
     }
 
     reset() {
-        console.log("total reset");
         this.resetGraph();
         this.resetHighLightNodes();
         this.setInteractionType(InteractionType.NULL);
@@ -132,7 +131,6 @@ export abstract class InteractiveGraph extends Interactable {
     }
 
     resetGraph() {
-        console.log("Reset graph");
         this.graph.reset();
         this.grid.reset();
         this.history.resetHistory();
@@ -217,15 +215,20 @@ export abstract class InteractiveGraph extends Interactable {
         this.graph.update(this.ctx, this.grid);
     }
 
-    highLightPath(nodes: AbstractNode[], edges?: AbstractEdge[], color?:string) {
+    highLightPath(nodes: AbstractNode[], edges?: AbstractEdge[], color?: string) {
         this.resetHighLightNodes();
         this.highLightNodes = nodes;
+
+        console.log("Calling highlight path: ")
+        console.log("Nodes. " + nodes)
+        console.log("Edges: " + edges)
+
 
         if (nodes != null)
             for (let i = 0; i < nodes.length; i++) {
                 let node = nodes[i];
                 if (Colorable.isColorable(node)) {
-                    node.setColor((color) ? color :"rgb(123," + (255 - ((i * 255) / nodes.length)) + ", 240)");
+                    node.setColor((color) ? color : "rgb(123," + (255 - ((i * 255) / nodes.length)) + ", 240)");
                 }
             }
 
@@ -234,18 +237,20 @@ export abstract class InteractiveGraph extends Interactable {
             for (let i = 0; i < edges.length; i++) {
                 let edge = edges[i];
                 if (Colorable.isColorable(edge)) {
-                    edge.setColor((color) ? color :"rgb(123," + (255 - ((i * 255) / edges.length)) + ", 240)");
+                    edge.setColor((color) ? color : "rgb(123," + (255 - ((i * 255) / edges.length)) + ", 240)");
                 }
             }
-        }else{
-            for(let i = 1; i < nodes.length; i++){
-                let from = nodes[i-1];
-                let to = nodes[i];
-                let edge = this.graph.getEdge(from,to);
-                if(edge && Colorable.isColorable(edge)){
-                    edge.setColor((color) ? color :"rgb(123," + (255 - ((i * 255) / nodes.length)) + ", 240)");
+        } else {
+            if (nodes)
+                for (let i = 1; i < nodes.length; i++) {
+                    let from = nodes[i - 1];
+                    let to = nodes[i];
+                    let edge = this.graph.getEdge(from, to);
+                    console.log("highlight edge: " + edge)
+                    if (edge && Colorable.isColorable(edge)) {
+                        edge.setColor((color) ? color : "rgb(123," + (255 - ((i * 255) / nodes.length)) + ", 240)");
+                    }
                 }
-            }
         }
 
         this.graph.update(this.ctx, this.grid);

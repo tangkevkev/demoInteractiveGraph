@@ -1,7 +1,24 @@
 {
     "name": "interactive-graph",
     "author": "Kevin Tang",
-    "description": "",
+    "description": "Tool to create graphs (create nodes and edges). Lets you interact with the graph(moving nodes around, highlighting nodes/edges etc). Run algorithms on your own graph! Graph is customizable",
+    "keywords": [
+        "angular",
+        "graph",
+        "discrete math graph",
+        "interactive graph",
+        "interactive discrete math graph",
+        "create graph",
+        "customize graph"
+    ],
+    "maintainers": [{
+        "name": "Kevin Tang",
+        "email": "kevin.tang@gmx.ch"
+    }],
+    "contributors": [{
+        "name": "Kevin Tang",
+        "email": "kevin.tang@gmx.ch"
+    }],
     "license": "MIT",
     "version": "0.0.1",
     "peerDependencies": {

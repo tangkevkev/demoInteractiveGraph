@@ -1,7 +1,8 @@
 <!--<interactive-graph [graphType]="graphType" (emitGraph)="setGraph($event)"></interactive-graph>
 
+<custom-interactive-graph [graph]="graph" [isSTExercise]=true></custom-interactive-graph>
 
 <custom-interactive-graph></custom-interactive-graph>
 <button (click)="show()">Show</button>-->
 
-<custom-interactive-graph [graph]="graph"></custom-interactive-graph>
+<interactive-graph (emitGraph)="setGraph($event)" [isSTExercise]=true></interactive-graph>

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { InteractiveGraphService } from './interactive-graph.service';
 import {
   IGraph, GraphDW, GraphUU, GraphUW, InteractionType,
   NameVertex, Interactable, Weightable, GraphDU, GraphGrid
@@ -20,10 +21,11 @@ export class CustomInteractiveGraphComponent implements OnInit {
   // ST = Source Target Exercise
   @Input("isSTExercise") isSTExercise: boolean = false;
   @Input("hasUnit") hasUnit: boolean = false;
+  @Input("language") language: string = "en";
+
 
   @Input() hasMandatoryNode: boolean = false;
   @Input() hasPrefixNode: boolean = false;
-
 
 
 
@@ -57,8 +59,11 @@ export class CustomInteractiveGraphComponent implements OnInit {
   undoButton: HTMLButtonElement = null as any;
   undoID: string = "undoButton";
 
-  constructor() {
+  protected service: InteractiveGraphService;
+
+  constructor(service: InteractiveGraphService) {
     this.buttonMapping = new Map();
+    this.service = service;
   }
 
   ngOnInit(): void {
@@ -74,6 +79,12 @@ export class CustomInteractiveGraphComponent implements OnInit {
     }
   }
 
+  onChangeLanguage() {
+  }
+
+  translate(word: string):string{
+    return this.service.translate(word, this.language)
+  }
 
   ngAfterViewInit(): void {
     if (this.isEditable) {
