@@ -166,8 +166,19 @@ export class InteractiveGraphComponent implements OnInit {
 
           let newEdge = newGraph.newEdge(fromNode, toNode);
           if (Weightable.isWeightable(edge) && Weightable.isWeightable(newEdge)) {
+            console.log("Transfer weight: " )
+            console.log(edge.getWeight())
             newEdge.setWeight(edge.getWeight())
+          }else{
+            if (Weightable.isWeightable(newEdge)){
+              newEdge.setWeight(0)
+              console.log("set to 0")
+              console.log(newEdge.getWeight())
+
+            }
           }
+
+          
           newGraph.add(newEdge)
         }
       })

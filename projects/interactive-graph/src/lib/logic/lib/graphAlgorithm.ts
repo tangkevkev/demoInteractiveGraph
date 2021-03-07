@@ -348,7 +348,7 @@ export class GraphAlgorithm {
 
         for (i = 0; i < Q.length; i++) {
             let distance_i = distance.get(Q[i])
-            if (distance_i && d > distance_i) {
+            if (distance_i != undefined && d > distance_i) {
                 smallestNode = Q[i];
                 d = distance_i;
             }

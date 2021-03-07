@@ -19,6 +19,8 @@
         "name": "Kevin Tang",
         "email": "kevin.tang@gmx.ch"
     }],
+
+    "homepage": "https://tangkevkev.github.io/demoInteractiveGraph/",
     "license": "MIT",
     "version": "0.0.1",
     "peerDependencies": {
