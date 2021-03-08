@@ -79,17 +79,26 @@ export class CustomImageVertex extends ImageVertex
 
         ctx.beginPath();
         ctx.strokeStyle = this.color;
+        ctx.fillStyle = "white";
+      
 
         if(this.imageLoaded){
             let ratio: number = width/Number(this.image.width);
-
-            ctx.drawImage(this.image, myCoord[1], myCoord[0], width, Number(this.image.height)*ratio);
+            let imageHeight: Number = Number(this.image.height)*ratio;
+            ctx.fillRect(myCoord[1], myCoord[0], width, Number(imageHeight));
+            ctx.strokeRect(myCoord[1], myCoord[0], width, Number(imageHeight))
+            ctx.stroke();
+            ctx.fill();
+            ctx.closePath();
+            ctx.drawImage(this.image, myCoord[1], myCoord[0], width, Number(imageHeight));
+        }else{
+            ctx.fillRect(myCoord[1], myCoord[0], width, height);
+            ctx.stroke();
+            ctx.fill();
+            ctx.closePath();
         }
-        ctx.fillStyle = "white";
-        ctx.strokeRect(myCoord[1], myCoord[0], width, height);
-        ctx.stroke();
-        ctx.fill();
-        ctx.closePath();
+      
+        
 
 
 

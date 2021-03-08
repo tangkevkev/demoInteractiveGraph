@@ -24,7 +24,7 @@ export class MyGraph extends IGraph {
     static counter: number = 0;
 
     constructor() {
-        super(GraphType.UNDIRECTED_GRAPH, new GraphGrid(null as any, 4,7))
+        super(GraphType.UNDIRECTED_GRAPH, new GraphGrid(null as any, 3,5))
     }
 
     keyBoardEvent() {
@@ -33,7 +33,7 @@ export class MyGraph extends IGraph {
 
     newNode(args: any[]): CustomImageVertex {
         let cs = new CustomImageVertex();
-     
+        cs.setImageLink('./assets/house.png')
         MyGraph.counter = MyGraph.counter+1
         console.log(MyGraph.counter)
         return cs;
@@ -41,7 +41,8 @@ export class MyGraph extends IGraph {
 
     newEdge(from: Vertex, to: Vertex): ImageSimpleUndirectedEdge {
         let edge = new ImageSimpleUndirectedEdge(from, to);
-        edge.setImageLink("./assets/street.png")
+    
+        edge.setImageLink("./assets/street_mini_1.png")
         return edge;
     }
 }

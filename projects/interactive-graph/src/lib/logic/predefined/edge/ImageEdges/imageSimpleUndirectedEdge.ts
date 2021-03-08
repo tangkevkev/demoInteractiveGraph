@@ -56,8 +56,20 @@ export class ImageSimpleUndirectedEdge extends UndirectedEdge implements Colorab
             ctx.rotate(angle)
 
             let height = grid.getNodeHeight() / 2
+            
+            let ratio = Number(this.image.height)/height; 
+            let newWidth = Number(this.image.width)/ratio;
 
-            ctx.drawImage(this.image, -height/2, -height/2, distance, height );
+            ctx.translate(-height/2, -height/2)
+
+            let pattern = ctx.createPattern(this.image, 'repeat-x')
+            if(pattern){
+                pattern.setTransform(new DOMMatrix().scale(1/ratio, 1/ratio))
+                ctx.rect(0, 0,distance,height);
+                ctx.fillStyle=pattern;
+
+                ctx.fill()
+            }            //ctx.drawImage(this.image, -height/2, -height/2, distance, height );
 
         }
         ctx.restore()
