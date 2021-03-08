@@ -86,15 +86,17 @@
             </button>
         </td>
     </tr>
-    <tr>
+</table>
+<canvas id="graph-canvas" width="650" height="350" style="border:1px solid #000000" draggable="false"></canvas>
+<table>
+    <td>
         <h2>{{translate("Algorithm")}}</h2>
         <select [(ngModel)]="algorithm" (change)="runAlgorithm()" class="form-control">
             <option *ngIf= "isWeighted() && isDirected()" [ngValue]="'shortestPath'">Djikstra shortest path</option>
             <option *ngIf ="isWeighted() && !isDirected()" [ngValue]="'mst'">Minimum spanning tree</option>
             <option *ngIf = "!isWeighted()" [ngValue] = "'hamiltonPath'">Hamilton path</option>
-            <option *ngIf ="!isWeighted() && !isDirected()" [ngValue] ="'vertexCover'">Vertex cover</option>
+            <option *ngIf ="!isWeighted() && !isDirected()" [ngValue] ="'vertexCover'">Minimun vertex cover</option>
         </select>
         <button (click)="runAlgorithm()">Run</button>
-    </tr>
+    </td>
 </table>
-<canvas id="graph-canvas" width="650" height="350" style="border:1px solid #000000" draggable="false"></canvas>

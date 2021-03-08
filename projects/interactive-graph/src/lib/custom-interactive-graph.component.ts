@@ -13,7 +13,7 @@ import { InteractiveGraph } from './logic/lib/interactive/interactiveGraph';
 })
 export class CustomInteractiveGraphComponent implements OnInit {
   
-  private readonly canvasID: string = 'graph-canvas';
+  private readonly canvasID: string = 'graph-canvas-custom';
   @Input("graph")graph: InteractiveGraph = null as any;
 
 
@@ -67,16 +67,7 @@ export class CustomInteractiveGraphComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const canvas = <HTMLCanvasElement>document.getElementById(this.canvasID);
-    if(this.graph){
-      this.graph.setCanvas(canvas);
-      let grid = this.graph.getGrid()
-      if(grid instanceof GraphGrid){
-        grid.setupCanvas(canvas)
-      }    
-
-      this.graph.forceUpdate()
-    }
+    
   }
 
   onChangeLanguage() {
@@ -87,6 +78,20 @@ export class CustomInteractiveGraphComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    const canvas = <HTMLCanvasElement>document.getElementById(this.canvasID);
+    if(this.graph){
+      let grid = this.graph.getGrid()
+      if(grid instanceof GraphGrid){
+        grid.setupCanvas(canvas)
+      }  
+     
+      this.graph.setCanvas(canvas);
+      
+        
+
+      this.graph.forceUpdate()
+    }
+
     if (this.isEditable) {
       this.resetButton = <HTMLButtonElement>document.getElementById(this.resetID);
       this.resetButton.addEventListener('click', this.onReset, false);

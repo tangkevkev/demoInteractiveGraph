@@ -4,6 +4,10 @@
 
 <custom-interactive-graph></custom-interactive-graph>
 <button (click)="show()">Show</button>-->
-<h1>Demo - Interactive Graph Library</h1>
+<h1 style="font-family:courier,arial,helvetica;">Demo interactive-graph</h1>
+<p style="font-family:courier,arial,helvetica;"> Under construction..</p>
 <hr>
-<interactive-graph (emitGraph)="setGraph($event)" [isSTExercise]=true></interactive-graph>
+<div class="flex-container">
+    <router-outlet></router-outlet>
+    <app-about></app-about>
+</div>
