@@ -7,6 +7,7 @@ export class ImageSimpleUndirectedWeightedEdge extends WeightedUndirectedEdge im
     color: string = this.standardColor;
 
     draw(ctx: CanvasRenderingContext2D, grid : AbstractGrid){
+        //TODO!!
         ctx.strokeStyle = this.color;
         ctx.fillStyle = this.color;
         super.draw(ctx, grid);

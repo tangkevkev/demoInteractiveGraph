@@ -86,6 +86,14 @@ export class CustomImageVertex extends ImageVertex
             let ratio: number = width/Number(this.image.width);
             let imageHeight: Number = Number(this.image.height)*ratio;
             ctx.fillRect(myCoord[1], myCoord[0], width, Number(imageHeight));
+
+            let oldColor = this.getColor();
+            this.resetColor();
+            if (oldColor != this.getColor()) {
+                this.setColor(oldColor);
+                ctx.lineWidth = 3;
+            }
+
             ctx.strokeRect(myCoord[1], myCoord[0], width, Number(imageHeight))
             ctx.stroke();
             ctx.fill();

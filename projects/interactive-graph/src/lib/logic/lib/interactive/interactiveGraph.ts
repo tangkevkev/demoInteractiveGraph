@@ -350,8 +350,10 @@ export abstract class InteractiveGraph extends Interactable {
         switch (this.interactionType) {
             case InteractionType.CREATE_NODE:
                 let newNode = this.newNode();
-                this.add(newNode, coordinate);
-                this.history.addCreateNode(newNode);
+                if (newNode) {
+                    this.add(newNode, coordinate);
+                    this.history.addCreateNode(newNode);
+                }
                 this.resetLocalStored();
 
                 if (newNode instanceof NameVertex
@@ -383,11 +385,13 @@ export abstract class InteractiveGraph extends Interactable {
                     } else {
                         if (this.edgeVertex != interacted) {
                             let edge = this.newEdge(this.edgeVertex, interacted);
-                            this.add(edge);
-                            this.history.addCreateEdge(edge);
-                            this.resetLocalStored();
-                            if (Weightable.isWeightable(edge))
-                                this.activDrawable = edge;
+                            if (edge) {
+                                this.add(edge);
+                                this.history.addCreateEdge(edge);
+                                this.resetLocalStored();
+                                if (Weightable.isWeightable(edge))
+                                    this.activDrawable = edge;
+                            }
                         }
                     }
                 } else {
@@ -685,6 +689,10 @@ export abstract class InteractiveGraph extends Interactable {
     }
 
     add(drawable: Drawable, coordinate?: [number, number], round?: boolean, move?: boolean) {
+        if (drawable == null as any) {
+            return
+        }
+
         let c: [number, number] = (coordinate == undefined) ? [0, 0] : coordinate;
         let success: boolean;
         if (drawable instanceof AbstractNode) {

@@ -4,8 +4,8 @@ import { TreeGrid } from "../../../lib/tree/treeGrid";
 
 export class ImageSimpleUndirectedTreeEdge extends ImageSimpleUndirectedEdge {
     draw(ctx: CanvasRenderingContext2D, grid: Grid) {
-
-        if (grid instanceof TreeGrid) {
+        //TODO
+        /*if (grid instanceof TreeGrid) {
             let nodeWidth = grid.getNodeWidth();
             let nodeHeight = grid.getNodeHeight();
 
@@ -21,6 +21,6 @@ export class ImageSimpleUndirectedTreeEdge extends ImageSimpleUndirectedEdge {
             ctx.strokeStyle = this.color;
             ctx.stroke();
             ctx.closePath();
-        }
+        }*/
     }
 }
