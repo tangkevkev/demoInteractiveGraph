@@ -10,15 +10,25 @@
 <hr>
 -->
 <nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" routerLink="/"><b>Demo interactive-graph</b></a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a class="nav-link" routerLink="/">Standard usage</a></li>
-            <li><a class="nav-link" routerLink="/custom">Customized usage</a> </li>
-        </ul>
+    <div class="navbar-header">
+        <a class="navbar-brand" routerLink="/"><b>Demo interactive-graph</b></a>
     </div>
+    <ul class="nav navbar-nav">
+        <li>
+            <a routerLinkActive="current" routerLink="/" [routerLinkActiveOptions]="{exact:
+                true }" (click)="currentLink()">Standard usage</a>
+        </li>
+        <li>
+            <a routerLinkActive="current" routerLink="/custom" [routerLinkActiveOptions]="{exact:
+                true}" (click)="currentLink()">Customized usage</a>
+        </li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+        <li style="margin-right: 15px;">
+            <a href="https://github.com/tangkevkev/demoInteractiveGraph" target="_blank" style="font-family:courier,arial,helvetica;">Github repository</a>
+        </li>
+    </ul>
 </nav>
 
 <router-outlet></router-outlet>

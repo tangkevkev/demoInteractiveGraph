@@ -9,3 +9,8 @@
     height: fit-content;
     padding: 0;
 }
+
+.current {
+    background-color: rgb(197, 197, 197);
+    color: white;
+}
