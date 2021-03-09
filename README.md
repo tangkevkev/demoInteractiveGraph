@@ -1,7 +1,9 @@
 # Info
-The website can be found at [Demo](https://tangkevkev.github.io/demoInteractiveGraph/)
+The website can be found at [Demo](https://tangkevkev.github.io/demoInteractiveGraph/).
+
 This demo shows you how the interactive-graph library can be deployed.
-The source code for the interactive-graph library can be found at [library](https://github.com/tangkevkev/interactiveGraph)
+
+The source code for the interactive-graph library can be found at [library](https://github.com/tangkevkev/interactiveGraph).
 
 # LibraryDemo
 
