@@ -4,10 +4,21 @@
 
 <custom-interactive-graph></custom-interactive-graph>
 <button (click)="show()">Show</button>-->
+<!--
 <h1 style="font-family:courier,arial,helvetica;">Demo interactive-graph</h1>
 <p style="font-family:courier,arial,helvetica;"> Under construction..</p>
 <hr>
-<div class="flex-container">
-    <router-outlet></router-outlet>
-    <app-about></app-about>
-</div>
+-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" routerLink="/"><b>Demo interactive-graph</b></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a class="nav-link" routerLink="/">Standard usage</a></li>
+            <li><a class="nav-link" routerLink="/custom">Customized usage</a> </li>
+        </ul>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>

@@ -29,6 +29,27 @@ export class CustomInteractiveGraphComponent implements OnInit {
     
 
     constructor() {
+        /**
+         * [Optional]
+         * Add a listener/callback function to the interactive graph. Each time you interact with the grap the callback function will be called
+         * 
+         */
+
+        this.graph.setCallBackFunction(this.graphListener)
+    }
+
+    /**
+     * 
+     * @param type describes how the user interacted with the graph (check the InteractionType enum)
+     * @param object returns the object (could be a node or an edge) which has been interacted with or null
+     */
+    graphListener(type: InteractionType, object: any){
+       /* console.log("Type: " + type);
+        console.log("Object: " + object)
+
+        if(object instanceof CustomImageVertex){
+            console.log("Graphlistener: " + object.getImageLink())
+        }*/
     }
 
     ngOnInit(): void {
@@ -47,6 +68,9 @@ export class CustomInteractiveGraphComponent implements OnInit {
 
     }
 
+    /**
+     * Compute and highlight a possible hamiltonpath
+     */
     computeHamilton(){
         let solution = GraphAlgorithm.hamiltonPath(this.graph.getGraph());
         this.graph.highLight(solution[0], solution[1]);
@@ -58,6 +82,8 @@ export class CustomInteractiveGraphComponent implements OnInit {
 
 /**
  * MyGraph is a customized graph. When extending IGraph, you will need to implement newNode and newEdge. 
+ * If you want to customize your graph you should extend from IGraph.
+ * 
  * newNode returns a new node, everytime you create a new node on the canvas.
  * newEdge returns a new edge, everytime you create a new edge on the canvas
  * 
@@ -76,7 +102,6 @@ export class MyGraph extends IGraph {
          * If you don't want to create a grid class yourself, just pick Graphgrid. Pass as first argument null and then
          * the dimension of the grid (this defines the amount of cells our canvas will contain (making nodes display bigger or smaller))
          */
-
         super(GraphType.UNDIRECTED_GRAPH, new GraphGrid(null as any, 3, 5))
     }
 
