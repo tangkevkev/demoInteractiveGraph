@@ -55,6 +55,10 @@ export abstract class InteractiveGraph extends Interactable {
     protected history: ActionHistory = null as any;
     protected activDrawable: Interactable = null as any;
 
+
+    //Call back function for users
+    protected callBackFunction: Function = (interactionType: InteractionType, object: any) => {};
+
     constructor(graph: AbstractGraph, grid: Grid, canvas?: HTMLCanvasElement) {
         super();
         NameVertex.ic = 0;
@@ -91,6 +95,14 @@ export abstract class InteractiveGraph extends Interactable {
         window.addEventListener('resize', this.updateHandler, false);
         this.setInteractionType(InteractionType.NULL);
         this.forceUpdate();
+    }
+
+    /**
+    * 
+    * @param callbackFunction will be called every time an action on the graph is performed
+    */
+    setCallBackFunction(callbackFunction: (interactionType: InteractionType, object: any) => void){
+        this.callBackFunction = callbackFunction;
     }
 
     getNodes(): AbstractNode[] {
@@ -353,6 +365,7 @@ export abstract class InteractiveGraph extends Interactable {
                 if (newNode) {
                     this.add(newNode, coordinate);
                     this.history.addCreateNode(newNode);
+                    this.callBackFunction(InteractionType.CREATE_NODE, newNode)
                 }
                 this.resetLocalStored();
 
@@ -392,6 +405,8 @@ export abstract class InteractiveGraph extends Interactable {
                                 if (Weightable.isWeightable(edge))
                                     this.activDrawable = edge;
                             }
+                        
+                            this.callBackFunction(InteractionType.CREATE_EDGE, edge)
                         }
                     }
                 } else {
@@ -410,6 +425,7 @@ export abstract class InteractiveGraph extends Interactable {
                         this.history.deleteNode(interacted);
                     }
                     this.delete(interacted);
+                    this.callBackFunction(InteractionType.DELETE, interacted);
                 }
                 break;
             case InteractionType.MOVE_NODE:
@@ -422,20 +438,24 @@ export abstract class InteractiveGraph extends Interactable {
                     }
                     else {
                         this.movable = interacted;
-                        if (this.movable instanceof AbstractNode)
+                        if (this.movable instanceof AbstractNode){
                             this.history.addMove(this.movable);
+                            this.callBackFunction(InteractionType.MOVE_NODE, interacted);
+                        }
                     }
                 break;
             case InteractionType.SELECT_SOURCE_NODE:
                 if (interacted instanceof AbstractNode) {
                     this.history.addSourceNode(this.sourceNode);
                     this.setSourceNode(interacted);
+                    this.callBackFunction(InteractionType.SELECT_SOURCE_NODE, this.sourceNode);
                 }
                 break;
             case InteractionType.SELECT_TARGET_NODE:
                 if (interacted instanceof AbstractNode) {
                     this.history.addTargetNode(this.targetNode);
                     this.setTargetNode(interacted);
+                    this.callBackFunction(InteractionType.SELECT_TARGET_NODE, this.targetNode);
                 }
                 break;
             case InteractionType.CREATE_NODE:
@@ -483,6 +503,7 @@ export abstract class InteractiveGraph extends Interactable {
                         }
                     }
                 }
+                this.callBackFunction(InteractionType.HIGHLIGHT_PATH, interacted)
                 break;
             case InteractionType.HIGHLIGHT_SIMPLE_PATH:
                 if (this.selectedNodes.length == 0) {
@@ -525,6 +546,7 @@ export abstract class InteractiveGraph extends Interactable {
                         }
                     }
                 }
+                this.callBackFunction(InteractionType.HIGHLIGHT_SIMPLE_PATH, interacted)
                 break;
             case InteractionType.HIGHLIGHT_EDGE:
                 if (interacted instanceof AbstractEdge) {
@@ -541,6 +563,7 @@ export abstract class InteractiveGraph extends Interactable {
                         }
                     }
                 }
+                this.callBackFunction(InteractionType.HIGHLIGHT_EDGE, interacted)
                 break;
             case InteractionType.HIGHLIGHT_VERTEX_COVER:
                 if (interacted instanceof AbstractNode) {
@@ -578,15 +601,19 @@ export abstract class InteractiveGraph extends Interactable {
                         })
                     })
                 }
+                this.callBackFunction(InteractionType.HIGHLIGHT_VERTEX_COVER, interacted)
+
                 break;
             case InteractionType.SELECT_MANDATORY_NODE:
                 if (interacted instanceof AbstractNode) {
                     this.setMandatoryNode(interacted);
+                    this.callBackFunction(InteractionType.SELECT_MANDATORY_NODE, interacted)
                 }
                 break;
             case InteractionType.SELECT_PREFIX_NODES:
                 if (interacted instanceof AbstractNode) {
                     this.setPrefixNode(interacted);
+                    this.callBackFunction(InteractionType.SELECT_PREFIX_NODES, interacted)
                 }
                 break;
             default:
