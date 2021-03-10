@@ -1,16 +1,21 @@
 .item-container {
     border-radius: 15px;
     border-color: black;
-    border-style: dashed;
-    background-color: #ffffff;
+    background-color: #e5fccf2d;
+    border-width: thin;
+    border-style: solid;
     width: fit-content;
-    overflow-x: auto;
-    display: inline-flex;
+    height: fit-content;
+    align-items: center;
     margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 100px;
+    text-align: center;
 }
 
 .flex-container {
-    display: inline-flex;
+    display: block;
+    flex-direction: column;
 }
 
 .flex-container>div {
@@ -31,6 +36,7 @@
     border-bottom: 1px;
     border-color: rgb(179, 56, 56);
     border-style: dashed;
+    padding: 2px;
 }
 
 button {

@@ -1,26 +1,32 @@
-<custom-interactive-graph [graph]="graph" style="display: block;" [isSTExercise]=true></custom-interactive-graph>
-<div style="display: block;">
+<div style="display: flex;">
+    <div>
+        <custom-interactive-graph [graph]="graph" [isSTExercise]=true>
+        </custom-interactive-graph>
+    </div>
+    <div class="item-container">
+        <label>Nodes</label>
+
+        <div class="flex-container" *ngFor="let node of nodeImages" (click)="setNodeImage(node.url)">
+            <div [ngClass]="{'chosen': node.url === (activeNodeUrl)}">
+                <img [src]=node.url width=50px height=50px>
+            </div>
+        </div>
+    </div>
+
+    <div class="item-container">
+        <label>Edges</label>
+
+        <div class="flex-container" *ngFor="let edge of edgeImages" (click)="setEdgeImage(edge.url)">
+            <div [ngClass]="{'chosen': edge.url === (activeEdgeUrl)}">
+                <img [src]=edge.url width=50px height=50px>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
     <div style="margin-bottom: 10px;">
         <button (click)="computeHamilton()">Compute a hamilton path</button>
     </div>
-    <div>
-        Custom nodes
-        <div class="item-container">
-            <div class="flex-container" *ngFor="let node of nodeImages" (click)="setNodeImage(node.url)">
-                <div [ngClass]="{'chosen': node.url === (activeNodeUrl)}">
-                    <img [src]=node.url width=50px height=50px>
-                </div>
-            </div>
-        </div>
 
-        Custom edges
-        <div class="item-container">
-            <div class="flex-container" *ngFor="let edge of edgeImages" (click)="setEdgeImage(edge.url)">
-                <div [ngClass]="{'chosen': edge.url === (activeEdgeUrl)}">
-                    <img [src]=edge.url width=50px height=50px>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </div>
