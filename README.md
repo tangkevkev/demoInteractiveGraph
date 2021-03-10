@@ -1,7 +1,9 @@
 # Info
-The website can be found at [Demo](https://tangkevkev.github.io/demoInteractiveGraph/).
+The demo can be found [here](https://tangkevkev.github.io/demoInteractiveGraph/).
 
-This demo shows you how the interactive-graph [library](https://github.com/tangkevkev/interactiveGraph) can be deployed.
+The demo shows you how the angular library [interactive-graph](https://github.com/tangkevkev/interactiveGraph) can be deployed.
+
+
 
 # LibraryDemo
 
