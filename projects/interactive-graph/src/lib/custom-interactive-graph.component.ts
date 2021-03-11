@@ -22,11 +22,13 @@ export class CustomInteractiveGraphComponent implements OnInit {
   @Input("isSTExercise") isSTExercise: boolean = false;
   @Input("hasUnit") hasUnit: boolean = false;
   @Input("language") language: string = "en";
+  @Input("showLanguageOption") showLanguageOption: boolean = false;
+
+  @Input("isMandatoryNodeExercise") isMandatoryNodeExercise: boolean = false;
+  @Input("isPrefixNodeExercise") isPrefixNodeExercise: boolean = false;
 
 
-  @Input() hasMandatoryNode: boolean = false;
-  @Input() hasPrefixNode: boolean = false;
-
+  @Output("graphListener") graphListener = new EventEmitter<{interactionType:InteractionType, object: any}>();
 
 
   interactionType: InteractionType = InteractionType.NULL;
@@ -77,18 +79,19 @@ export class CustomInteractiveGraphComponent implements OnInit {
     return this.service.translate(word, this.language)
   }
 
+  
+
   ngAfterViewInit(): void {
     const canvas = <HTMLCanvasElement>document.getElementById(this.canvasID);
     if(this.graph){
       let grid = this.graph.getGrid()
+      this.graph.setCallBackFunction((interactionType: InteractionType, object: any) => {
+        this.graphListener.emit({interactionType, object});
+      });
       if(grid instanceof GraphGrid){
         grid.setupCanvas(canvas)
-      }  
-     
+      }       
       this.graph.setCanvas(canvas);
-      
-        
-
       this.graph.forceUpdate()
     }
 
@@ -122,7 +125,7 @@ export class CustomInteractiveGraphComponent implements OnInit {
         }
       }
 
-      if (this.hasMandatoryNode) {
+      if (this.isMandatoryNodeExercise) {
         this.buttonMapping.set(this.mandatoryID,
           <HTMLButtonElement>document.getElementById(this.mandatoryID));
 
@@ -131,7 +134,7 @@ export class CustomInteractiveGraphComponent implements OnInit {
           mandElem.addEventListener('click',
             this.onMandatoryNode, false);
       }
-      if (this.hasPrefixNode) {
+      if (this.isPrefixNodeExercise) {
         this.buttonMapping.set(this.prefixID,
           <HTMLButtonElement>document.getElementById(this.prefixID));
         if (this.buttonMapping.get(this.prefixID) == null) {

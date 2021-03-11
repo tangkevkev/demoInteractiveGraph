@@ -24,12 +24,14 @@ export class InteractiveGraphComponent implements OnInit {
   @Input("hasUnit") hasUnit: boolean = false;
   @Input("language") language: string = "en";
 
-  @Input() hasMandatoryNode: boolean = false;
-  @Input() hasPrefixNode: boolean = false;
+  @Input("isMandatoryNodeExercise") isMandatoryNodeExercise: boolean = false;
+  @Input("isPrefixNodeExercise") isPrefixNodeExercise: boolean = false;
+  @Input("showLanguageOption") showLanguageOption: boolean = false;
+  @Input("showGraphtypeOption") showGraphTypeOption: boolean = false;
+  @Input("showAlgorithmOption") showAlgorithmOption: boolean = false;
 
   @Output() emitGraph = new EventEmitter<InteractiveGraph>()
-
-
+  @Output("graphListener") graphListener = new EventEmitter<{interactionType:InteractionType, object: any}>();
 
 
   interactionType: InteractionType = InteractionType.NULL;
@@ -73,7 +75,6 @@ export class InteractiveGraphComponent implements OnInit {
   translate(word: string): string {
     return this.service.translate(word, this.language)
   }
-
 
   isWeighted(): boolean {
     switch (this.graphType) {
@@ -172,8 +173,6 @@ export class InteractiveGraphComponent implements OnInit {
               newEdge.setWeight(0)
               }
           }
-
-          
           newGraph.add(newEdge)
         }
       })
@@ -189,18 +188,15 @@ export class InteractiveGraphComponent implements OnInit {
         if (newTarget)
           newGraph.setTargetNode(newTarget);
       }
-
-
-
       this.graph.reset()
+      this.graph.setCallBackFunction(() => {})
       this.graph = newGraph;
-
-
-
       this.graph.forceUpdate()
     }
     this.emitGraph.emit(this.graph)
-
+    this.graph.setCallBackFunction((interactionType: InteractionType, object: any)=>{
+      this.graphListener.emit({interactionType, object});
+    })
   }
 
   ngOnInit(): void {
@@ -225,6 +221,11 @@ export class InteractiveGraphComponent implements OnInit {
         break;
     }
     this.emitGraph.emit(this.graph)
+    if(this.graph){
+      this.graph.setCallBackFunction((interactionType: InteractionType, object: any)=>{
+        this.graphListener.emit({interactionType, object});
+      })
+    }
   }
 
   ngAfterViewInit(): void {
@@ -260,7 +261,7 @@ export class InteractiveGraphComponent implements OnInit {
         }
       }
 
-      if (this.hasMandatoryNode) {
+      if (this.isMandatoryNodeExercise) {
         this.buttonMapping.set(this.mandatoryID,
           <HTMLButtonElement>document.getElementById(this.mandatoryID));
 
@@ -269,7 +270,7 @@ export class InteractiveGraphComponent implements OnInit {
           mandElem.addEventListener('click',
             this.onMandatoryNode, false);
       }
-      if (this.hasPrefixNode) {
+      if (this.isPrefixNodeExercise) {
         this.buttonMapping.set(this.prefixID,
           <HTMLButtonElement>document.getElementById(this.prefixID));
         if (this.buttonMapping.get(this.prefixID) == null) {

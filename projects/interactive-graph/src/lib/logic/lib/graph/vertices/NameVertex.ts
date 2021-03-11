@@ -8,7 +8,7 @@ import { Colorable } from "../../abstract/colorable";
 export abstract class NameVertex extends Vertex implements Colorable {
     protected name: string = "";
     protected color: string = "";
-    protected standarColor: string = "yellow";
+    protected standardColor: string = "yellow";
     protected predefinedName: string[] = ['A', 'B', 'C', 'D',
         'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'
         , 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -49,6 +49,6 @@ export abstract class NameVertex extends Vertex implements Colorable {
     }
 
     resetColor() {
-        this.color = this.standarColor;
+        this.color = this.standardColor;
     }
 }

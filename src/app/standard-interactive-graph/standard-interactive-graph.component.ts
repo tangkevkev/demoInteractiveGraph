@@ -21,25 +21,23 @@ export class StandardInteractiveGraphComponent implements OnInit {
    */
   setGraph(graph: InteractiveGraph) {
     this.graph = graph;
-
-
-    /**
-       * [Optional]
-       * Add a listener/callback function to the interactive graph. Each time you interact with the grap the callback function will be called
-       * 
-       */
-
-    this.graph.setCallBackFunction(this.graphListener)
   }
+
+
+
+
+
   /**
  * 
- * @param type describes how the user interacted with the graph (check the InteractionType enum)
+ * @param interactionType describes how the user interacted with the graph (check the InteractionType enum file)
  * @param object returns the object (could be a node or an edge) which has been interacted with or null
  */
-  graphListener(type: InteractionType, object: any) {
+  actionListener(action:{interactionType: InteractionType, object:any}) {
     /**  
      * console.log("Type: " + type);
      * console.log("Object: " + object)
      */
+  
+    //console.log(action.interactionType + " object : " + action.object)
   }
 }
