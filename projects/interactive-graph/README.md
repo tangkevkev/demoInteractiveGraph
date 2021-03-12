@@ -1,24 +1,60 @@
-# InteractiveGraph
+IN PROGRESS
+
+# interactive-graph
+
+Simple and customizable Angular components to display & manage graphs.
+<img src="./images/standard.png">
+<img src="./images/custom.png">
+
+<b>interactive-graph</b> Let's you manage graphs (create and connect nodes to edges), interact with the graph (moving nodes around, deleting nodes/edges, highlighting nodes/edges etc), running graph algorithms on your own graph! The display of nodes and edges is customizable (see the second picture).
+
+For a demo see [DEMO](https://tangkevkev.github.io/demoInteractiveGraph/). And the [CODE for the demo](https://github.com/tangkevkev/demoInteractiveGraph). 
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.2.
 
-## Code scaffolding
+## Install
+```
+$ npm install --save interactive-graph
+```
 
-Run `ng generate component component-name --project interactive-graph` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project interactive-graph`.
-> Note: Don't forget to add `--project interactive-graph` or else it will be added to the default project in your `angular.json` file. 
+## USAGE (BASIC)
+```js
+// in app.module.ts
+import { InteractiveGraphModule} from 'interactive-graph';
 
-## Build
+@NgModule({
+  ...
+  imports: [
+        InteractiveGraphModule
+        ...
+  ],
+  ...
+})
+export class AppModule { }
+```
 
-Run `ng build interactive-graph` to build the project. The build artifacts will be stored in the `dist/` directory.
+```html
+<!-- in app.component.html -->
+<interactive-graph [showAlgorithmOption]=true 
+  [showGraphtypeOption]=true (emitGraph)="setGraph($event)">
+</interactive-graph>
+```
 
-## Publishing
+```js
+// in app.component.ts
+import { InteractiveGraph } from 'interactive-graph'
 
-After building your library with `ng build interactive-graph`, go to the dist folder `cd dist/interactive-graph` and run `npm publish`.
+graph: InteractiveGraph = null as any;
 
-## Running unit tests
+//From this graph instance you can access its topology (get access to nodes and edges)
+setGraph(graph: InteractiveGraph){
+    this.graph = graph;
+    //this.graph.getNodes();
+    //this.graph.getEdges();
+ }
+```
 
-Run `ng test interactive-graph` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## USAGE (ADVANCED)
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
