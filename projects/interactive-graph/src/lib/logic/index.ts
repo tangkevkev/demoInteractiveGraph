@@ -1,5 +1,3 @@
-import { fromEventPattern } from 'rxjs';
-
 export {GraphGrid} from './lib/graph/graphGrid'
 export {SimpleInteractiveUndirectedGraph} from './predefined/interactive_graph/undirectedGraph/simpleInteractiveUndirectedGraph'
 export {SimpleInteractiveDirectedGraph} from './predefined/interactive_graph/directedGraph/simpleInteractiveDirectedGraph'
