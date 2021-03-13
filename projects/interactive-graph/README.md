@@ -152,18 +152,10 @@ export class CustomInteractiveGraphComponent implements OnInit {
 
     
 
-    constructor() {
-        /**
-         * [Optional]
-         * Add a listener/callback function to the interactive graph. Each time you interact with the grap the callback function will be called
-         * 
-         */
-
-        this.graph.setCallBackFunction(this.graphListener)
-    }
+    constructor() {}
 
     /**
-     * 
+     * Add a listener/callback function to the interactive graph. Each time you interact with the grap the callback function will be called
      * @param type describes how the user interacted with the graph (check the InteractionType enum)
      * @param object returns the object (could be a node or an edge) which has been interacted with or null
      */
