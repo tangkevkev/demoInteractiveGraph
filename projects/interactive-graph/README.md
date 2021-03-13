@@ -3,8 +3,9 @@ IN PROGRESS
 # interactive-graph
 
 Simple and customizable Angular components to display & manage graphs.
-<img src="https://github.com/tangkevkev/demoInteractiveGraph/blob/main/projects/interactive-graph/images/custom.png">
 <img src="https://github.com/tangkevkev/demoInteractiveGraph/blob/main/projects/interactive-graph/images/standard.png">
+<img src="https://github.com/tangkevkev/demoInteractiveGraph/blob/main/projects/interactive-graph/images/custom.png">
+
 
 <b>interactive-graph</b> Let's you manage graphs (create and connect nodes to edges), interact with the graph (moving nodes around, deleting nodes/edges, highlighting nodes/edges etc), running graph algorithms on your own graph! The display of nodes and edges is customizable (see the second picture).
 
