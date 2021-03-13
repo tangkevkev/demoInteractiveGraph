@@ -301,5 +301,6 @@ export class MyGraph extends IGraph {
 </div>
 ```
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.2.
+## Licence
 
+MIT © Kevin Tang
