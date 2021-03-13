@@ -10,7 +10,6 @@ Simple and customizable Angular components to display & manage graphs.
 
 For a demo see [DEMO](https://tangkevkev.github.io/demoInteractiveGraph/). And the [CODE for the demo](https://github.com/tangkevkev/demoInteractiveGraph). 
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.2.
 
 ## Install
 ```
@@ -302,4 +301,5 @@ export class MyGraph extends IGraph {
 </div>
 ```
 
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.2.
 
