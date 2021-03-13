@@ -21,6 +21,13 @@
     }],
 
     "homepage": "https://tangkevkev.github.io/demoInteractiveGraph/",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/tangkevkev/demoInteractiveGraph.git"
+    },
+    "bugs": {
+        "url": "https://github.com/tangkevkev/demoInteractiveGraph/issues"
+    },
     "license": "MIT",
     "version": "0.0.2",
     "peerDependencies": {
