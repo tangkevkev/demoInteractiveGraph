@@ -43,7 +43,7 @@ export class AppModule { }
 
 ```js
 // in app.component.ts
-import { InteractiveGraph } from 'interactive-graph'
+import { InteractiveGraph, InteractionType } from 'interactive-graph'
 
 graph: InteractiveGraph = null as any;
 
@@ -125,7 +125,7 @@ The following code shows you how the custom interactive-graph on the second pict
 ```js
 import { Component, OnInit } from '@angular/core';
 import { IGraph, GraphType, ImageSimpleUndirectedEdge, GraphGrid, 
-    CustomImageVertex, InteractionType, GraphAlgorithm } from 'interactive-graph'
+    CustomImageVertex, InteractionType, GraphAlgorithm, InteractionType } from 'interactive-graph'
 
 @Component({
     selector: 'app-custom-interactive-graph',
